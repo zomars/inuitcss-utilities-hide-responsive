@@ -1,0 +1,59 @@
+/* ==========================================================================
+   #RESPONSIVE-HIDE
+   ========================================================================== */
+
+/**
+ * Simple utility to make responsive hide helper classes.
+ */
+
+/**
+ * If we’re using Sass-MQ, automatically generate responsive hide helper
+ * classes for each of our defined breakpoints, and give them a Responsive
+ * Suffix, e.g.:
+ *
+ * <div class="u-hidden-visually@mobile">
+ * <div class="u-hidden@tablet">
+ */
+
+
+/**
+ * Hide only visually, but have it available for screen readers:
+ * http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+ */
+
+@if (variable-exists(mq-breakpoints)) {
+  @each $inuit-bp-name, $inuit-bp-value in $mq-breakpoints {
+    @include mq($from: $inuit-bp-name) {
+      .u-hidden-visually\@#{$inuit-bp-name} {
+        @include inuit-hidden-visually();
+      }
+    }
+
+    @include mq($until: $inuit-bp-name) {
+      .u-hidden-visually\@until-#{$inuit-bp-name} {
+        @include inuit-hidden-visually();
+      }
+    }
+  }
+}
+
+
+/**
+ * Hide visually and from screen readers.
+ */
+
+@if (variable-exists(mq-breakpoints)) {
+  @each $inuit-bp-name, $inuit-bp-value in $mq-breakpoints {
+    @include mq($from: $inuit-bp-name) {
+      .u-hidden\@#{$inuit-bp-name} {
+        display: none !important;
+      }
+    }
+
+    @include mq($until: $inuit-bp-name) {
+      .u-hidden\@until-#{$inuit-bp-name} {
+        display: none !important;
+      }
+    }
+  }
+}
